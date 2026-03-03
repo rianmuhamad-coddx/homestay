@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baba's Homestay Medan – Your Home Away From Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* =====================================================
+   ROOT VARS & RESET
+===================================================== */
+:root {
+  --ink: #0d0a1a;
+  --plum: #3b0764;
+  --violet: #6d28d9;
+  --amethyst: #8b5cf6;
+  --lilac: #c4b5fd;
+  --cream: #faf8f5;
+  --sand: #f0ece3;
+  --gold: #d4a853;
+  --white: #ffffff;
+  --nav-h: 70px;
+  --top-h: 36px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  padding-bottom: 0;
+}
+img { display: block; }
+a { text-decoration: none; }
+h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+#topbar {
+  background: var(--plum);
+  height: var(--top-h);
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.04em;
+  position: relative;
+  z-index: 300;
+}
+#topbar a { color: rgba(255,255,255,0.65); transition: color .2s; }
+#topbar a:hover { color: var(--gold); }
+.tb-left { display: flex; gap: 20px; align-items: center; }
+.tb-left span { display: flex; align-items: center; gap: 6px; }
+.tb-left i { color: var(--gold); font-size: 0.7rem; }
+.tb-right { display: flex; gap: 14px; }
+.tb-right a { font-size: 0.8rem; }
+@media(max-width:600px){
+  #topbar { padding: 0 16px; }
+  .tb-left .hide-xs { display: none; }
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+#navbar {
+  position: fixed;
+  top: var(--top-h);
+  left: 0; right: 0;
+  z-index: 250;
+  height: var(--nav-h);
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: top 0.35s ease, background 0.35s ease, box-shadow 0.35s ease, padding 0.3s ease;
+  background: transparent;
+}
+/* when scrolled — topbar hidden, navbar sticks to top */
+#navbar.scrolled {
+  top: 0;
+  background: rgba(13,10,26,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 3px 40px rgba(0,0,0,0.35);
+}
+/* after hero — white nav */
+#navbar.light {
+  top: 0;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+}
+#navbar.light .nav-logo-text  { color: var(--ink) !important; }
+#navbar.light .nav-logo-sub   { color: var(--violet) !important; }
+#navbar.light .nav-link       { color: #333 !important; }
+#navbar.light .nav-link:hover { color: var(--violet) !important; }
+
+/* logo */
+.nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.nav-mark {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--violet), var(--amethyst));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; color: white;
+  box-shadow: 0 4px 16px rgba(109,40,217,0.38); flex-shrink: 0;
+}
+.nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: white; line-height: 1.1; }
+.nav-logo-sub  { font-size: 0.55rem; letter-spacing: 0.22em; color: var(--lilac); text-transform: uppercase; font-weight: 500; }
+
+/* desktop links */
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-link { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.85); letter-spacing: 0.04em; transition: color .2s; }
+.nav-link:hover { color: var(--gold) !important; }
+.nav-cta {
+  background: linear-gradient(135deg, var(--violet), var(--plum));
+  color: white !important; padding: 9px 22px; border-radius: 40px;
+  font-size: 0.78rem !important; font-weight: 600 !important;
+  letter-spacing: 0.05em; box-shadow: 0 4px 18px rgba(109,40,217,0.35);
+  transition: transform .2s, box-shadow .2s !important;
+}
+.nav-cta:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 24px rgba(109,40,217,0.45) !important; }
+
+/* hamburger — completely removed */
+.nav-burger { display: none !important; }
+
+@media(max-width:1024px){
+  .nav-links { display: none; }
+  #navbar { padding: 0 20px; }
+  #topbar { display: none; }
+  #navbar { top: 0; }
+}
+
+/* =====================================================
+   SHARED FIXED BG — satu foto nyambung untuk hero + about
+===================================================== */
+#shared-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+  background: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&q=90') center/cover no-repeat;
+  will-change: transform;
+}
+
+/* =====================================================
+   HERO — background transparan, pakai #shared-bg
+===================================================== */
+#hero {
+  position: relative;
+  height: 100vh; min-height: 620px;
+  display: flex; align-items: center;
+  overflow: hidden;
+  padding-top: calc(var(--top-h) + var(--nav-h));
+  background: transparent;
+}
+/* hero overlay — kiri gelap untuk teks, kanan semi-terbuka */
+#hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    108deg,
+    rgba(13,10,26,0.93) 0%,
+    rgba(59,7,100,0.72) 48%,
+    rgba(13,10,26,0.10) 100%
+  );
+}
+.hero-content {
+  position: relative; z-index: 5;
+  padding: 0 80px; max-width: 720px;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(212,168,83,0.15); border: 1px solid rgba(212,168,83,0.38);
+  color: var(--gold); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 7px 18px; border-radius: 40px; margin-bottom: 24px;
+  backdrop-filter: blur(8px); width: fit-content;
+}
+.hero-h1 {
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 900; color: white; line-height: 1.06;
+  margin-bottom: 20px; letter-spacing: -0.01em;
+}
+.hero-h1 em { font-style: italic; color: var(--lilac); }
+.hero-h1 .gold { color: var(--gold); }
+.hero-sub {
+  font-size: 1rem; color: rgba(255,255,255,0.62);
+  line-height: 1.75; max-width: 440px; margin-bottom: 36px; font-weight: 300;
+}
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
+.btn-pri {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: linear-gradient(135deg, var(--violet), var(--plum));
+  color: white; padding: 15px 34px; border-radius: 50px;
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em;
+  box-shadow: 0 8px 28px rgba(109,40,217,0.42);
+  transition: all .3s; border: none; cursor: pointer; font-family: 'Outfit', sans-serif;
+}
+.btn-pri:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(109,40,217,0.52); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  color: white; padding: 15px 34px; border-radius: 50px;
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+  border: 1.5px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.07); backdrop-filter: blur(8px);
+  transition: all .3s; font-family: 'Outfit', sans-serif;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+.hero-stats {
+  display: flex; gap: 36px; padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.stat-n { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700; color: white; line-height: 1; margin-bottom: 4px; }
+.stat-n .star { color: var(--gold); font-size: 1.3rem; }
+.stat-l { font-size: 0.62rem; color: rgba(255,255,255,0.42); letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; }
+/* scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  animation: bDown 2s ease-in-out infinite;
+}
+.scroll-hint span { font-size: 0.58rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.35); text-transform: uppercase; }
+.scroll-hint i { color: rgba(255,255,255,0.28); font-size: 0.72rem; }
+@keyframes bDown { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+
+@media(max-width:768px){
+  .hero-content { padding: 0 20px; }
+  .hero-h1 { font-size: 2.4rem; }
+  .hero-stats { gap: 20px; }
+  .stat-n { font-size: 1.6rem; }
+  #hero { padding-top: 70px; height: auto; min-height: 100svh; }
+  #hero::after { display: none; }
+}
+
+/* =====================================================
+   BOOKING BAR
+===================================================== */
+.booking-wrap {
+  background: white;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.09);
+  position: relative; z-index: 10;
+}
+.booking-inner {
+  max-width: 1240px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+}
+.bk-field {
+  padding: 20px 28px;
+  border-right: 1px solid #eee;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.bk-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--violet); }
+.bk-input {
+  background: none; border: none; outline: none;
+  font-family: 'Outfit', sans-serif; font-size: 0.88rem;
+  font-weight: 500; color: var(--ink); width: 100%;
+}
+.bk-input::placeholder { color: #bbb; }
+.bk-btn {
+  background: linear-gradient(135deg, var(--violet), var(--plum));
+  color: white; border: none; padding: 0 36px;
+  font-family: 'Outfit', sans-serif; font-size: 0.82rem;
+  font-weight: 600; letter-spacing: 0.06em; cursor: pointer;
+  display: flex; align-items: center; gap: 9px; white-space: nowrap;
+  transition: filter .2s;
+}
+.bk-btn:hover { filter: brightness(1.1); }
+@media(max-width:768px){
+  .booking-inner { grid-template-columns: 1fr 1fr; }
+  .bk-field:nth-child(3) { border-right: none; }
+  .bk-btn { grid-column: span 2; padding: 16px; justify-content: center; }
+  .bk-field { padding: 14px 16px; }
+}
+@media(max-width:480px){
+  .booking-inner { grid-template-columns: 1fr; }
+  .bk-field { border-right: none; border-bottom: 1px solid #f0f0f0; }
+  .bk-btn { grid-column: span 1; }
+}
+
+/* =====================================================
+   SHARED SECTION HELPERS
+===================================================== */
+.section-eyebrow {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--violet);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+.section-eyebrow::before { content:''; width:24px; height:2px; background:var(--gold); flex-shrink:0; }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700; color: var(--ink); line-height: 1.15; margin-bottom: 14px;
+}
+.section-title em { color: var(--violet); font-style: italic; }
+.section-div { width: 48px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--amethyst)); border-radius: 2px; margin-bottom: 22px; }
+.section-div.center { margin: 0 auto 22px; }
+.section-desc { font-size: 0.9rem; color: #777; line-height: 1.8; font-weight: 300; }
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+
+/* =====================================================
+   ABOUT — transparan, pakai #shared-bg yang SAMA dengan hero
+   Overlay berbeda arah → foto terasa nyambung, context berbeda
+===================================================== */
+#tentang {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background: transparent;
+}
+/* overlay about — arah BERLAWANAN dari hero overlay */
+#about-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    255deg,
+    rgba(13,10,26,0.95) 0%,
+    rgba(59,7,100,0.88) 42%,
+    rgba(13,10,26,0.60) 100%
+  );
+}
+.about-section {
+  position: relative; z-index: 2;
+  max-width: 1280px; margin: 0 auto;
+  padding: 110px 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+/* LEFT: Stats/Visual card grid */
+.about-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.about-stat-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 28px 22px;
+  text-align: center;
+  transition: all .3s;
+}
+.about-stat-card:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(196,181,253,0.35);
+  transform: translateY(-4px);
+}
+.about-stat-card.big {
+  grid-column: span 2;
+  display: flex; align-items: center; gap: 18px;
+  text-align: left; padding: 22px 26px;
+}
+.about-sc-icon {
+  width: 54px; height: 54px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--violet), var(--amethyst));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: white; flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(109,40,217,0.4);
+}
+.about-sc-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 900; color: white; line-height: 1;
+}
+.about-sc-n .gold { color: var(--gold); }
+.about-sc-l {
+  font-size: 0.65rem; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.15em; text-transform: uppercase; margin-top: 5px; font-weight: 500;
+}
+.about-sc-icon-sm {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--violet), var(--amethyst));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: white;
+  box-shadow: 0 4px 16px rgba(109,40,217,0.35);
+}
+.about-sc-big-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem; font-weight: 700; color: white; line-height: 1; margin-bottom: 3px;
+}
+.about-sc-big-l { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-weight: 300; }
+
+/* RIGHT: Text — now on dark bg so flip colors */
+.about-text .section-eyebrow { color: var(--gold); }
+.about-text .section-eyebrow::before { background: var(--gold); }
+.about-text .section-title { color: white; }
+.about-text .section-title em { color: var(--lilac); }
+.about-text .section-desc { color: rgba(255,255,255,0.6); }
+.about-text .section-div { background: linear-gradient(90deg, var(--gold), var(--lilac)); }
+
+.feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 30px; }
+.feat { display: flex; gap: 11px; align-items: flex-start; }
+.feat-ic {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--lilac); font-size: 0.82rem; flex-shrink: 0; transition: all .3s;
+}
+.feat:hover .feat-ic { background: var(--violet); color: white; border-color: var(--violet); }
+.feat-nm { font-size: 0.8rem; font-weight: 600; color: white; margin-bottom: 1px; }
+.feat-ds { font-size: 0.7rem; color: rgba(255,255,255,0.42); }
+
+@media(max-width:900px){
+  .about-section { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+  /* about uses shared-bg */
+}
+@media(max-width:480px){
+  .about-section { padding: 72px 20px; }
+  .about-cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .about-stat-card { padding: 20px 14px; }
+}
+
+/* =====================================================
+   WHY CHOOSE US — new WordPress-style section
+===================================================== */
+.why-section {
+  background: var(--ink);
+  padding: 100px 48px;
+  position: relative; overflow: hidden;
+}
+.why-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400&q=70') center/cover;
+  opacity: 0.05;
+}
+.why-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
+.why-img-wrap { position: relative; }
+.why-img-wrap img { width: 100%; height: 520px; object-fit: cover; border-radius: 20px; }
+.why-img-badge {
+  position: absolute; bottom: 30px; left: -28px;
+  background: white; border-radius: 18px; padding: 18px 22px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 14px 48px rgba(0,0,0,0.2);
+}
+.wib-icon { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, var(--violet), var(--amethyst)); display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem; flex-shrink:0; }
+.wib-n { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1; }
+.wib-t { font-size: 0.68rem; color: #999; text-transform: uppercase; letter-spacing: 0.12em; }
+.why-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 700; color: white; line-height: 1.15; margin-bottom: 18px; }
+.why-title em { color: var(--lilac); font-style: italic; }
+.why-desc { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 36px; font-weight: 300; }
+.why-list { display: flex; flex-direction: column; gap: 16px; }
+.why-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 18px; border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.04);
+  transition: all .3s;
+}
+.why-item:hover { border-color: rgba(196,181,253,0.25); background: rgba(196,181,253,0.07); transform: translateX(4px); }
+.why-ic { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--violet), var(--amethyst)); display:flex; align-items:center; justify-content:center; color:white; font-size:0.9rem; flex-shrink:0; }
+.why-item-n { font-size: 0.88rem; font-weight: 600; color: white; margin-bottom: 3px; }
+.why-item-d { font-size: 0.75rem; color: rgba(255,255,255,0.42); line-height: 1.5; }
+@media(max-width:900px){
+  .why-inner { grid-template-columns: 1fr; gap: 48px; }
+  .why-img-wrap img { height: 320px; }
+  .why-img-badge { left: 16px; }
+  .why-section { padding: 72px 24px; }
+}
+
+/* =====================================================
+   ROOMS
+===================================================== */
+.rooms-section { padding: 100px 48px; background: var(--sand); }
+.rooms-header { text-align: center; max-width: 560px; margin: 0 auto 60px; }
+.rooms-grid {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.room-card {
+  background: white; border-radius: 20px; overflow: hidden;
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+.room-card:hover { transform: translateY(-8px); box-shadow: 0 24px 56px rgba(0,0,0,0.13); }
+.room-img { height: 210px; overflow: hidden; position: relative; }
+.room-img img { width:100%; height:100%; object-fit:cover; transition:transform .6s; }
+.room-card:hover .room-img img { transform: scale(1.06); }
+.room-badge {
+  position: absolute; top: 13px; left: 13px;
+  background: linear-gradient(135deg, var(--violet), var(--plum));
+  color: white; font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 11px; border-radius: 30px;
+}
+.room-badge.gold { background: linear-gradient(135deg, var(--gold), #c69025); }
+.room-body { padding: 20px 22px; }
+.room-name { font-family: 'Playfair Display', serif; font-size: 1.22rem; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+.room-desc { font-size: 0.77rem; color: #888; line-height: 1.6; margin-bottom: 13px; font-weight: 300; }
+.room-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
+.room-tag { background: rgba(109,40,217,0.07); color: var(--violet); font-size: 0.66rem; font-weight: 500; padding: 4px 10px; border-radius: 20px; }
+.room-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid #f2f0f8; }
+.room-price { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--violet); }
+.room-price sub { font-family: 'Outfit',sans-serif; font-size: 0.68rem; color: #bbb; font-weight: 400; }
+.room-book {
+  background: linear-gradient(135deg, var(--violet), var(--plum));
+  color: white; border: none; padding: 8px 18px; border-radius: 30px;
+  font-size: 0.74rem; font-weight: 600; cursor: pointer;
+  transition: all .3s; font-family: 'Outfit',sans-serif;
+}
+.room-book:hover { transform: scale(1.05); box-shadow: 0 6px 18px rgba(109,40,217,0.38); }
+.old-price { font-size: 0.72rem; color: #bbb; text-decoration: line-through; display: block; line-height: 1; margin-bottom: 1px; }
+@media(max-width:900px){ .rooms-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:560px){ .rooms-grid { grid-template-columns: 1fr; } .rooms-section { padding: 72px 20px; } }
+
+/* =====================================================
+   STATS / NUMBERS — WordPress counter section
+===================================================== */
+.stats-section {
+  background: linear-gradient(135deg, var(--plum), var(--violet));
+  padding: 72px 48px;
+  position: relative; overflow: hidden;
+}
+.stats-section::before {
+  content:''; position:absolute; inset:0;
+  background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&q=60') center/cover;
+  opacity: 0.06;
+}
+.stats-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; z-index: 2; }
+.stat-card { text-align: center; padding: 28px 16px; }
+.stat-card-n { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: white; line-height: 1; margin-bottom: 8px; }
+.stat-card-n .gold { color: var(--gold); }
+.stat-card-l { font-size: 0.72rem; color: rgba(255,255,255,0.55); letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; }
+@media(max-width:768px){ .stats-inner { grid-template-columns: 1fr 1fr; } .stats-section { padding: 56px 20px; } }
+
+/* =====================================================
+   AMENITIES
+===================================================== */
+.amenities-section { padding: 100px 48px; }
+.amenities-inner { max-width: 1280px; margin: 0 auto; }
+.amenities-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 52px;
+}
+.amenity-card {
+  padding: 26px 20px; text-align: center; border-radius: 16px;
+  border: 1.5px solid #ece8f5; background: white; transition: all .3s;
+}
+.amenity-card:hover { border-color: var(--amethyst); background: #f6f2ff; transform: translateY(-4px); box-shadow: 0 10px 32px rgba(109,40,217,0.09); }
+.am-ic { width: 52px; height: 52px; background: linear-gradient(135deg, var(--violet), var(--amethyst)); border-radius: 14px; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; font-size:1.1rem; color:white; box-shadow:0 5px 18px rgba(109,40,217,0.22); }
+.am-n { font-size: 0.83rem; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.am-d { font-size: 0.7rem; color: #aaa; font-weight: 300; }
+@media(max-width:900px){ .amenities-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .amenities-section { padding: 72px 20px; } }
+
+/* =====================================================
+   PROMO PARALLAX BANNER
+===================================================== */
+.promo-section {
+  position: relative; padding: 100px 48px; text-align: center; overflow: hidden;
+}
+#promo-parallax {
+  position: absolute; inset: -20% 0;
+  background: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=1600&q=80') center/cover no-repeat;
+  will-change: transform;
+}
+.promo-overlay { position:absolute; inset:0; background: rgba(30,5,60,0.82); z-index:1; }
+.promo-content { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+.promo-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(212,168,83,0.18); border:1px solid rgba(212,168,83,0.4); color:var(--gold); font-size:0.67rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; padding:7px 18px; border-radius:30px; margin-bottom:18px; }
+.promo-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:700; color:white; margin-bottom:12px; line-height:1.2; }
+.promo-code { display:inline-block; background:rgba(255,255,255,0.1); border:1.5px dashed rgba(255,255,255,0.3); color:var(--gold); font-size:1.1rem; font-weight:700; letter-spacing:0.22em; padding:8px 24px; border-radius:8px; margin-bottom:26px; font-family:'Playfair Display',serif; }
+.promo-sub { font-size:0.8rem; color:rgba(255,255,255,0.48); margin-bottom:28px; }
+.promo-btn { display:inline-flex; align-items:center; gap:9px; background:white; color:var(--plum); font-size:0.82rem; font-weight:700; padding:14px 32px; border-radius:40px; transition:all .3s; }
+.promo-btn:hover { background:var(--gold); color:white; transform:translateY(-2px); }
+@media(max-width:768px){ .promo-section { padding: 72px 20px; } }
+
+/* =====================================================
+   GALLERY — BENTO
+===================================================== */
+.gallery-section { padding: 100px 48px; }
+.gallery-header { text-align:center; max-width:520px; margin:0 auto 52px; }
+.bento {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 240px 200px 210px;
+  gap: 4px;
+  border-radius: 20px; overflow: hidden;
+}
+.gc { overflow:hidden; position:relative; cursor:pointer; }
+.gc img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s; }
+.gc:hover img { transform: scale(1.08); }
+.gc-ov { position:absolute; inset:0; background:linear-gradient(to top, rgba(59,7,100,.68) 0%, transparent 55%); opacity:0; transition:opacity .3s; display:flex; align-items:flex-end; padding:14px; }
+.gc:hover .gc-ov { opacity:1; }
+.gc-lbl { color:white; font-size:0.77rem; font-weight:600; }
+.g1 { grid-column:span 5; grid-row:span 2; }
+.g2 { grid-column:span 4; }
+.g3 { grid-column:span 3; }
+.g4 { grid-column:span 4; }
+.g5 { grid-column:span 3; }
+.g6 { grid-column:span 3; }
+.g7 { grid-column:span 3; }
+.g8 { grid-column:span 3; }
+.g9 { grid-column:span 3; }
+.gallery-more { text-align:center; margin-top:28px; }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  border:2px solid var(--violet); color:var(--violet);
+  background:none; padding:12px 30px; border-radius:40px;
+  font-size:0.82rem; font-weight:600; cursor:pointer;
+  font-family:'Outfit',sans-serif; transition:all .3s;
+}
+.btn-outline:hover { background:var(--violet); color:white; }
+@media(max-width:900px){
+  .bento { grid-template-columns: 1fr 1fr; grid-template-rows: unset; }
+  .g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8,.g9 { grid-column: span 1 !important; grid-row: span 1 !important; height: 200px; }
+  .gallery-section { padding: 72px 20px; }
+}
+@media(max-width:480px){
+  .g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8,.g9 { height: 160px; }
+}
+
+/* =====================================================
+   EXPERIENCE / PARALLAX QUOTE — new
+===================================================== */
+.exp-section {
+  position: relative; padding: 120px 48px; text-align: center; overflow: hidden;
+}
+#exp-parallax {
+  position: absolute; inset: -20% 0;
+  background: url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&q=80') center/cover;
+  will-change: transform;
+}
+.exp-overlay { position:absolute; inset:0; background:rgba(13,10,26,0.78); z-index:1; }
+.exp-content { position:relative; z-index:2; max-width:680px; margin:0 auto; }
+.exp-quote { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3.5vw,2.6rem); font-style:italic; color:white; line-height:1.5; margin-bottom:22px; font-weight:400; }
+.exp-quote em { color:var(--gold); font-style:normal; }
+.exp-author { font-size:0.8rem; color:rgba(255,255,255,0.45); letter-spacing:0.15em; text-transform:uppercase; }
+@media(max-width:768px){ .exp-section { padding: 80px 20px; } .exp-quote { font-size:1.5rem; } }
+
+/* =====================================================
+   TESTIMONIALS
+===================================================== */
+.reviews-section { background:var(--sand); padding:100px 48px; }
+.reviews-header { text-align:center; max-width:520px; margin:0 auto 52px; }
+.rating-big { font-family:'Playfair Display',serif; font-size:3.2rem; font-weight:900; color:var(--ink); line-height:1; }
+.rating-stars-row { color:var(--gold); font-size:1.1rem; margin:6px 0 3px; }
+.reviews-grid { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.rv-card { background:white; border-radius:18px; padding:26px; border:1.5px solid #ece8f5; transition:all .3s; position:relative; overflow:hidden; }
+.rv-card:hover { border-color:var(--lilac); transform:translateY(-4px); box-shadow:0 14px 44px rgba(109,40,217,0.1); }
+.rv-q { font-size:3rem; color:#f0ebff; font-family:Georgia,serif; position:absolute; top:10px; right:18px; line-height:1; }
+.rv-stars { color:var(--gold); font-size:0.82rem; margin-bottom:11px; }
+.rv-text { font-size:0.83rem; color:#666; line-height:1.75; margin-bottom:18px; font-weight:300; font-style:italic; }
+.rv-author { display:flex; align-items:center; gap:11px; padding-top:16px; border-top:1px solid #f5f1ff; }
+.rv-av { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.88rem; color:white; flex-shrink:0; }
+.rv-name { font-size:0.8rem; font-weight:600; color:var(--ink); }
+.rv-from { font-size:0.68rem; color:#ccc; }
+.rv-g { display:flex; align-items:center; gap:4px; background:#f0f5ff; padding:3px 9px; border-radius:20px; margin-left:auto; }
+.rv-g i { color:#4285f4; font-size:0.65rem; }
+.rv-g span { color:#4285f4; font-size:0.68rem; font-weight:700; }
+@media(max-width:900px){ .reviews-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .reviews-grid { grid-template-columns:1fr; } .reviews-section { padding:72px 20px; } }
+
+/* =====================================================
+   LOCATION
+===================================================== */
+.location-section { padding:100px 48px; }
+.location-inner { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:center; }
+.loc-map { border-radius:24px; overflow:hidden; height:420px; box-shadow:0 18px 56px rgba(0,0,0,0.11); position:relative; }
+.loc-map iframe { width:100%; height:100%; border:0; display:block; }
+.map-pin { position:absolute; bottom:16px; left:16px; background:linear-gradient(135deg,var(--violet),var(--plum)); color:white; font-size:0.73rem; font-weight:600; padding:9px 16px; border-radius:30px; box-shadow:0 4px 14px rgba(109,40,217,0.38); }
+.loc-items { display:flex; flex-direction:column; gap:18px; margin:24px 0 32px; }
+.loc-item { display:flex; gap:14px; align-items:flex-start; }
+.loc-ic { width:42px; height:42px; border-radius:11px; background:rgba(109,40,217,0.08); display:flex; align-items:center; justify-content:center; color:var(--violet); font-size:0.85rem; flex-shrink:0; }
+.loc-nm { font-size:0.83rem; font-weight:600; color:var(--ink); margin-bottom:2px; }
+.loc-dt { font-size:0.73rem; color:#aaa; }
+@media(max-width:900px){ .location-inner { grid-template-columns:1fr; gap:40px; } .loc-map { height:320px; } .location-section { padding:72px 24px; } }
+
+/* =====================================================
+   CTA
+===================================================== */
+.cta-section { position:relative; padding:120px 48px; text-align:center; overflow:hidden; background:var(--ink); }
+.cta-bg { position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=80') center/cover; opacity:.1; }
+.cta-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(59,7,100,.9),rgba(13,10,26,.96)); }
+.cta-content { position:relative; z-index:2; max-width:680px; margin:0 auto; }
+.cta-pill-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(212,168,83,.14); border:1px solid rgba(212,168,83,.3); color:var(--gold); font-size:0.67rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; padding:7px 18px; border-radius:30px; margin-bottom:22px; }
+.cta-h { font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3.4rem); font-weight:900; color:white; line-height:1.1; margin-bottom:14px; }
+.cta-h em { color:var(--lilac); }
+.cta-d { font-size:0.92rem; color:rgba(255,255,255,.5); margin-bottom:36px; font-weight:300; line-height:1.7; }
+.cta-pills { display:flex; flex-wrap:wrap; justify-content:center; gap:9px; margin-bottom:32px; }
+.cta-pill { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.65); font-size:0.73rem; padding:7px 16px; border-radius:30px; }
+.cta-pill i { color:#4ade80; }
+.cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-wa { background:#25d366; color:white; padding:15px 32px; border-radius:50px; font-size:0.85rem; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:9px; transition:all .3s; }
+.btn-wa:hover { background:#1ebe5d; transform:translateY(-3px); box-shadow:0 10px 28px rgba(37,211,102,.38); }
+.cta-trust { display:flex; flex-wrap:wrap; gap:28px; justify-content:center; margin-top:44px; padding-top:28px; border-top:1px solid rgba(255,255,255,.07); }
+.trust-item { display:flex; align-items:center; gap:7px; font-size:0.7rem; color:rgba(255,255,255,.35); }
+@media(max-width:768px){ .cta-section { padding:80px 20px; } }
+
+/* =====================================================
+   FOOTER
+===================================================== */
+footer { background:#07040f; padding:72px 48px 28px; }
+.footer-grid { max-width:1280px; margin:0 auto 44px; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:36px; }
+.ftr-brand { display:flex; align-items:center; gap:11px; margin-bottom:16px; }
+.ftr-mark { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--violet),var(--amethyst)); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:700; font-size:1.05rem; color:white; flex-shrink:0; }
+.ftr-name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:white; }
+.ftr-sub { font-size:0.55rem; letter-spacing:0.2em; color:var(--amethyst); text-transform:uppercase; }
+.ftr-desc { font-size:0.78rem; color:rgba(255,255,255,.34); line-height:1.8; margin-bottom:20px; max-width:280px; font-weight:300; }
+.ftr-socials { display:flex; gap:9px; }
+.ftr-social { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.78rem; color:white; transition:all .3s; }
+.ftr-social:hover { transform:translateY(-3px); }
+.ftr-col-title { font-family:'Playfair Display',serif; font-size:0.96rem; color:white; margin-bottom:16px; font-weight:600; }
+.ftr-links { display:flex; flex-direction:column; gap:9px; }
+.ftr-links a { font-size:0.76rem; color:rgba(255,255,255,.35); transition:color .2s; display:flex; align-items:center; gap:7px; }
+.ftr-links a::before { content:'–'; color:var(--amethyst); font-size:0.68rem; }
+.ftr-links a:hover { color:var(--lilac); }
+.ftr-contact { display:flex; flex-direction:column; gap:11px; }
+.ftr-ci { display:flex; gap:11px; align-items:flex-start; }
+.ftr-ci i { color:var(--amethyst); font-size:0.78rem; margin-top:2px; flex-shrink:0; }
+.ftr-ci span { font-size:0.76rem; color:rgba(255,255,255,.35); line-height:1.55; }
+.footer-bottom { max-width:1280px; margin:0 auto; padding-top:22px; border-top:1px solid rgba(255,255,255,.06); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+.ftr-copy { font-size:0.7rem; color:rgba(255,255,255,.22); }
+.ftr-legal { display:flex; gap:18px; }
+.ftr-legal a { font-size:0.7rem; color:rgba(255,255,255,.22); transition:color .2s; }
+.ftr-legal a:hover { color:var(--lilac); }
+@media(max-width:900px){ .footer-grid { grid-template-columns:1fr 1fr; } footer { padding:56px 24px 24px; } }
+@media(max-width:480px){ .footer-grid { grid-template-columns:1fr; } }
+
+/* =====================================================
+   BOTTOM NAV — MOBILE
+===================================================== */
+.bnav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 -3px 28px rgba(0,0,0,0.1);
+  padding: 10px 8px 12px;
+  justify-content: space-around; align-items: flex-end;
+}
+.bni { display:flex; flex-direction:column; align-items:center; gap:3px; padding: 4px 10px; border-radius:12px; transition:all .2s; }
+.bni i { font-size:1.2rem; color:#aaa; }
+.bni span { font-size:0.58rem; color:#aaa; font-weight:500; }
+.bni.active i { color:var(--violet); }
+.bni.active span { color:var(--violet); font-weight:700; }
+.bni.active { background:rgba(109,40,217,0.08); }
+.bni-center {
+  background: linear-gradient(135deg, var(--violet), var(--plum));
+  border-radius: 50%; width:52px; height:52px;
+  display:flex; align-items:center; justify-content:center;
+  margin-top:-18px; border:3px solid white;
+  box-shadow: 0 6px 20px rgba(109,40,217,.44);
+  transition: transform .2s, box-shadow .2s;
+  cursor: pointer; border:none;
+}
+.bni-center:hover,.bni-center:active { transform:scale(0.93); }
+.bni-center i { color:white; font-size:1.2rem; }
+@media(max-width:1024px){
+  .bnav { display:flex; }
+  body { padding-bottom: 76px; }
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+#modal-pesan { display:none; position:fixed; inset:0; z-index:9998; background:rgba(7,4,15,.82); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:16px; }
+#modal-pesan.open { display:flex; }
+.modal-box { background:white; border-radius:26px; width:100%; max-width:620px; max-height:92vh; overflow-y:auto; position:relative; box-shadow:0 40px 100px rgba(0,0,0,.28); animation:mIn .35s cubic-bezier(.34,1.56,.64,1); }
+@keyframes mIn{from{opacity:0;transform:scale(.88) translateY(28px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-hd { background:linear-gradient(135deg,var(--ink),var(--plum),var(--violet)); border-radius:26px 26px 0 0; padding:26px 26px 22px; position:sticky; top:0; z-index:10; }
+.modal-close { position:absolute; top:14px; right:14px; background:rgba(255,255,255,.15); border:none; color:white; width:34px; height:34px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; font-size:0.95rem; }
+.modal-close:hover { background:rgba(255,255,255,.25); }
+.m-input { width:100%; border:1.5px solid #e8e3ff; border-radius:11px; padding:10px 13px; font-size:0.85rem; color:var(--ink); outline:none; transition:border .2s,box-shadow .2s; font-family:'Outfit',sans-serif; }
+.m-input:focus { border-color:var(--violet); box-shadow:0 0 0 3px rgba(109,40,217,.09); }
+.m-label { display:block; font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.11em; color:var(--violet); margin-bottom:5px; }
+.step-dot { width:8px; height:8px; border-radius:50%; background:#ddd6fe; transition:all .3s; }
+.step-dot.active { background:white; width:22px; border-radius:4px; }
+.kamar-opt { display:flex; align-items:center; gap:11px; padding:11px; border-radius:11px; border:1.5px solid #e8e3ff; cursor:pointer; transition:all .2s; }
+.kamar-opt:hover { border-color:var(--lilac); background:#faf8ff; }
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+#lightbox { display:none; position:fixed; inset:0; z-index:9999; background:rgba(7,4,15,.96); align-items:center; justify-content:center; }
+#lightbox.active { display:flex; }
+#lightbox img { max-width:90vw; max-height:88vh; border-radius:8px; box-shadow:0 28px 72px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+
+<!-- SHARED PARALLAX BACKGROUND — used by both hero & about -->
+<div id="shared-bg"></div>
+
+<!-- ===== TOPBAR ===== -->
+<div id="topbar">
+  <div class="tb-left">
+    <span><i class="fas fa-phone"></i> +62 812-3456-7890</span>
+    <span class="hide-xs"><i class="fas fa-envelope"></i> info@babashomestay.id</span>
+  </div>
+  <div class="tb-right">
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fab fa-tiktok"></i></a>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <a href="#hero" class="nav-brand">
+    <div class="nav-mark">B</div>
+    <div>
+      <div class="nav-logo-text">Baba's Homestay</div>
+      <div class="nav-logo-sub">Medan · Est. 2015</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#hero"     class="nav-link">Beranda</a>
+    <a href="#kamar"    class="nav-link">Kamar</a>
+    <a href="#fasilitas" class="nav-link">Fasilitas</a>
+    <a href="#galeri"   class="nav-link">Galeri</a>
+    <a href="#lokasi"   class="nav-link">Lokasi</a>
+    <a href="#ulasan"   class="nav-link">Ulasan</a>
+    <a href="#" onclick="openModal();return false;" class="nav-link nav-cta">Pesan Sekarang</a>
+  </div>
+</nav>
+
+
+<!-- mobile navigation handled by bottom nav -->
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div id="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><i class="fas fa-map-marker-alt"></i> Medan, Sumatera Utara</div>
+    <h1 class="hero-h1">
+      Rasakan Hangatnya<br>
+      <em>Rumah Sendiri</em><br>
+      di <span class="gold">Jantung Medan</span>
+    </h1>
+    <p class="hero-sub">Homestay premium dengan suasana hangat dan fasilitas lengkap. Nikmati pengalaman menginap yang tak terlupakan bersama keluarga di Medan.</p>
+    <div class="hero-btns">
+      <button onclick="openModal()" class="btn-pri"><i class="fas fa-calendar-check"></i> Pesan Kamar</button>
+      <a href="#galeri" class="btn-ghost"><i class="fas fa-images"></i> Lihat Galeri</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n">9+</div><div class="stat-l">Tipe Kamar</div></div>
+      <div><div class="stat-n">4.9 <span class="star">★</span></div><div class="stat-l">Rating Google</div></div>
+      <div><div class="stat-n">2K+</div><div class="stat-l">Tamu Puas</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ===== BOOKING BAR ===== -->
+<div class="booking-wrap">
+  <div class="booking-inner">
+    <div class="bk-field">
+      <div class="bk-label"><i class="fas fa-calendar-alt" style="margin-right:5px"></i>Check-In</div>
+      <input type="date" class="bk-input">
+    </div>
+    <div class="bk-field">
+      <div class="bk-label"><i class="fas fa-calendar-check" style="margin-right:5px"></i>Check-Out</div>
+      <input type="date" class="bk-input">
+    </div>
+    <div class="bk-field" style="border-right:none">
+      <div class="bk-label"><i class="fas fa-user-friends" style="margin-right:5px"></i>Tamu</div>
+      <select class="bk-input">
+        <option>1 Tamu</option><option selected>2 Tamu</option><option>3 Tamu</option><option>4+ Tamu</option>
+      </select>
+    </div>
+    <button class="bk-btn"><i class="fas fa-search"></i> Cek Ketersediaan</button>
+  </div>
+</div>
+
+<!-- ===== TENTANG — FULL PARALLAX BG ===== -->
+<section id="tentang">
+  <!-- Parallax background -->
+  <div id="about-overlay"></div>
+
+  <div class="about-section">
+    <!-- LEFT: Stat cards on glass -->
+    <div class="about-cards reveal">
+      <div class="about-stat-card">
+        <div class="about-sc-n">2<span class="gold">K+</span></div>
+        <div class="about-sc-l">Tamu Puas</div>
+      </div>
+      <div class="about-stat-card">
+        <div class="about-sc-n">4.9<span class="gold" style="font-size:1.6rem">★</span></div>
+        <div class="about-sc-l">Rating Google</div>
+      </div>
+      <div class="about-stat-card">
+        <div class="about-sc-n">9<span class="gold">+</span></div>
+        <div class="about-sc-l">Tipe Kamar</div>
+      </div>
+      <div class="about-stat-card">
+        <div class="about-sc-n">10<span class="gold">yr</span></div>
+        <div class="about-sc-l">Berpengalaman</div>
+      </div>
+      <div class="about-stat-card big">
+        <div class="about-sc-icon-sm"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+          <div class="about-sc-big-n">Medan, Sumatera Utara</div>
+          <div class="about-sc-big-l">Jl. Gajah Mada No. 88, Medan Baru</div>
+        </div>
+      </div>
+      <div class="about-stat-card big">
+        <div class="about-sc-icon-sm"><i class="fas fa-star"></i></div>
+        <div>
+          <div class="about-sc-big-n">Top Rated Homestay</div>
+          <div class="about-sc-big-l">Terbaik di Medan versi Google 2024</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Text -->
+    <div class="about-text reveal">
+      <div class="section-eyebrow">Tentang Kami</div>
+      <h2 class="section-title">Baba's Homestay,<br><em>Lebih dari Sekadar</em> Penginapan</h2>
+      <div class="section-div"></div>
+      <p class="section-desc" style="margin-bottom:14px">Baba's Homestay Medan hadir sejak 2015 dengan misi memberikan pengalaman menginap yang hangat, nyaman, dan berkesan layaknya di rumah sendiri. Berlokasi strategis di jantung kota Medan.</p>
+      <p class="section-desc">Dengan interior elegan, fasilitas modern, dan pelayanan personal 24 jam, kami berkomitmen memastikan setiap tamu merasa disambut dan diperhatikan.</p>
+      <div class="feat-grid">
+        <div class="feat"><div class="feat-ic"><i class="fas fa-home"></i></div><div><div class="feat-nm">Lokasi Strategis</div><div class="feat-ds">Dekat pusat perbelanjaan</div></div></div>
+        <div class="feat"><div class="feat-ic"><i class="fas fa-shield-alt"></i></div><div><div class="feat-nm">Keamanan 24/7</div><div class="feat-ds">CCTV & security guard</div></div></div>
+        <div class="feat"><div class="feat-ic"><i class="fas fa-wifi"></i></div><div><div class="feat-nm">WiFi Super Cepat</div><div class="feat-ds">Fiber 100 Mbps</div></div></div>
+        <div class="feat"><div class="feat-ic"><i class="fas fa-concierge-bell"></i></div><div><div class="feat-nm">Layanan Prima</div><div class="feat-ds">Staff ramah 24 jam</div></div></div>
+      </div>
+      <button onclick="openModal()" class="btn-pri">Pesan Kamar Sekarang <i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE US ===== -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800&q=85" alt="Suite Keluarga">
+      <div class="why-img-badge">
+        <div class="wib-icon"><i class="fas fa-star"></i></div>
+        <div>
+          <div class="wib-n">4.9 ★</div>
+          <div class="wib-t">Google Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-eyebrow" style="color:var(--lilac)"><span style="background:var(--gold);width:24px;height:2px;display:inline-block;flex-shrink:0;border-radius:2px"></span> Kenapa Memilih Kami?</div>
+      <h2 class="why-title">Pengalaman Menginap yang<br><em>Benar-benar Berbeda</em></h2>
+      <p class="why-desc">Kami bukan sekadar tempat menginap. Baba's Homestay adalah rumah kedua Anda, dengan sentuhan personal yang tidak akan Anda temukan di hotel biasa.</p>
+      <div class="why-list">
+        <div class="why-item"><div class="why-ic"><i class="fas fa-home"></i></div><div><div class="why-item-n">Suasana Rumah yang Hangat</div><div class="why-item-d">Dekorasi homey, ruang bersama nyaman, nuansa keluarga yang sesungguhnya.</div></div></div>
+        <div class="why-item"><div class="why-ic"><i class="fas fa-map-marker-alt"></i></div><div><div class="why-item-n">Lokasi Paling Strategis di Medan</div><div class="why-item-d">3 menit dari Merdeka Walk, 5 menit dari Sun Plaza dan pusat kuliner.</div></div></div>
+        <div class="why-item"><div class="why-ic"><i class="fas fa-medal"></i></div><div><div class="why-item-n">Harga Terbaik, Kualitas Premium</div><div class="why-item-d">Mulai Rp 120.000/malam dengan fasilitas setara hotel bintang 3.</div></div></div>
+        <div class="why-item"><div class="why-ic"><i class="fas fa-headset"></i></div><div><div class="why-item-n">Support 24 Jam Non-Stop</div><div class="why-item-d">Tim kami siap membantu kapanpun Anda butuhkan, hari atau malam.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="stats-section">
+  <div class="stats-inner reveal">
+    <div class="stat-card"><div class="stat-card-n">2<span class="gold">K+</span></div><div class="stat-card-l">Tamu Puas</div></div>
+    <div class="stat-card"><div class="stat-card-n">4.9<span class="gold" style="font-size:1.8rem">★</span></div><div class="stat-card-l">Rating Google</div></div>
+    <div class="stat-card"><div class="stat-card-n">9<span class="gold">+</span></div><div class="stat-card-l">Tipe Kamar</div></div>
+    <div class="stat-card"><div class="stat-card-n">10<span class="gold">yr</span></div><div class="stat-card-l">Berpengalaman</div></div>
+  </div>
+</div>
+
+<!-- ===== KAMAR ===== -->
+<section id="kamar" class="rooms-section">
+  <div class="rooms-header reveal">
+    <div class="section-eyebrow" style="justify-content:center">Pilihan Kamar</div>
+    <h2 class="section-title">Temukan Kamar yang <em>Sempurna untuk Anda</em></h2>
+    <div class="section-div center"></div>
+    <p class="section-desc">Setiap kamar dirancang dengan penuh perhatian untuk kenyamanan maksimal.</p>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card reveal">
+      <div class="room-img"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Kamar Deluxe"><div class="room-badge">Best Seller</div></div>
+      <div class="room-body">
+        <div class="room-name">Kamar Deluxe</div>
+        <div class="room-desc">Kamar luas dengan queen bed, AC, TV LED 32", dan kamar mandi dalam dengan water heater.</div>
+        <div class="room-tags"><span class="room-tag"><i class="fas fa-bed" style="margin-right:4px"></i>Queen Bed</span><span class="room-tag"><i class="fas fa-snowflake" style="margin-right:4px"></i>AC</span><span class="room-tag"><i class="fas fa-wifi" style="margin-right:4px"></i>WiFi</span></div>
+        <div class="room-footer"><div><div class="room-price">Rp 350.000<sub>/malam</sub></div></div><button class="room-book" onclick="openModal()">Pesan</button></div>
+      </div>
+    </div>
+    <div class="room-card reveal">
+      <div class="room-img"><img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80" alt="Superior"><div class="room-badge">Promo</div></div>
+      <div class="room-body">
+        <div class="room-name">Kamar Superior</div>
+        <div class="room-desc">Kamar nyaman twin bed, cocok untuk 2 orang, dilengkapi AC, lemari, dan kamar mandi dalam.</div>
+        <div class="room-tags"><span class="room-tag"><i class="fas fa-bed" style="margin-right:4px"></i>Twin Bed</span><span class="room-tag"><i class="fas fa-snowflake" style="margin-right:4px"></i>AC</span><span class="room-tag"><i class="fas fa-tv" style="margin-right:4px"></i>TV LED</span></div>
+        <div class="room-footer"><div><div class="old-price">Rp 350.000</div><div class="room-price">Rp 280.000<sub>/malam</sub></div></div><button class="room-book" onclick="openModal()">Pesan</button></div>
+      </div>
+    </div>
+    <div class="room-card reveal">
+      <div class="room-img"><img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?w=600&q=80" alt="Suite"><div class="room-badge gold">Family Suite</div></div>
+      <div class="room-body">
+        <div class="room-name">Suite Keluarga</div>
+        <div class="room-desc">King bed + 2 single, ruang tamu terpisah, dapur kecil, dan 2 kamar mandi. Cocok 4-6 orang.</div>
+        <div class="room-tags"><span class="room-tag"><i class="fas fa-users" style="margin-right:4px"></i>4-6 Tamu</span><span class="room-tag"><i class="fas fa-utensils" style="margin-right:4px"></i>Dapur</span><span class="room-tag"><i class="fas fa-bath" style="margin-right:4px"></i>2 KM</span></div>
+        <div class="room-footer"><div class="room-price">Rp 550.000<sub>/malam</sub></div><button class="room-book" onclick="openModal()">Pesan</button></div>
+      </div>
+    </div>
+    <div class="room-card reveal">
+      <div class="room-img"><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80" alt="Standard"></div>
+      <div class="room-body">
+        <div class="room-name">Kamar Standard</div>
+        <div class="room-desc">Kamar bersih dan nyaman dengan single bed, cocok untuk solo traveler dengan budget terjangkau.</div>
+        <div class="room-tags"><span class="room-tag"><i class="fas fa-bed" style="margin-right:4px"></i>Single Bed</span><span class="room-tag"><i class="fas fa-fan" style="margin-right:4px"></i>Kipas Angin</span><span class="room-tag"><i class="fas fa-wifi" style="margin-right:4px"></i>WiFi</span></div>
+        <div class="room-footer"><div class="room-price">Rp 180.000<sub>/malam</sub></div><button class="room-book" onclick="openModal()">Pesan</button></div>
+      </div>
+    </div>
+    <div class="room-card reveal">
+      <div class="room-img"><img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=600&q=80" alt="VIP"><div class="room-badge gold">VIP</div></div>
+      <div class="room-body">
+        <div class="room-name">Kamar VIP</div>
+        <div class="room-desc">King bed, bathtub, smart TV 50", mini bar, dan welcome drink. Pengalaman mewah.</div>
+        <div class="room-tags"><span class="room-tag"><i class="fas fa-crown" style="margin-right:4px"></i>King Bed</span><span class="room-tag"><i class="fas fa-bath" style="margin-right:4px"></i>Bathtub</span><span class="room-tag"><i class="fas fa-cocktail" style="margin-right:4px"></i>Mini Bar</span></div>
+        <div class="room-footer"><div class="room-price">Rp 750.000<sub>/malam</sub></div><button class="room-book" onclick="openModal()">Pesan</button></div>
+      </div>
+    </div>
+    <div class="room-card reveal">
+      <div class="room-img"><img src="https://images.unsplash.com/photo-1544124499-58912cbddaad?w=600&q=80" alt="Dormitory"></div>
+      <div class="room-body">
+        <div class="room-name">Dormitory</div>
+        <div class="room-desc">Kamar bersama 6 bunk bed dengan loker pribadi. Perfect untuk backpacker dan solo traveler.</div>
+        <div class="room-tags"><span class="room-tag"><i class="fas fa-layer-group" style="margin-right:4px"></i>Bunk Bed</span><span class="room-tag"><i class="fas fa-lock" style="margin-right:4px"></i>Loker</span><span class="room-tag"><i class="fas fa-wifi" style="margin-right:4px"></i>WiFi</span></div>
+        <div class="room-footer"><div class="room-price">Rp 120.000<sub>/malam</sub></div><button class="room-book" onclick="openModal()">Pesan</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FASILITAS ===== -->
+<section id="fasilitas">
+  <div class="amenities-section">
+    <div class="amenities-inner">
+      <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto">
+        <div class="section-eyebrow" style="justify-content:center">Fasilitas Kami</div>
+        <h2 class="section-title">Semua yang Anda Butuhkan <em>Tersedia di Sini</em></h2>
+        <div class="section-div center"></div>
+      </div>
+      <div class="amenities-grid reveal">
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-wifi"></i></div><div class="am-n">WiFi Gratis</div><div class="am-d">100 Mbps fiber optik</div></div>
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-parking"></i></div><div class="am-n">Parkir Gratis</div><div class="am-d">Motor & mobil</div></div>
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-utensils"></i></div><div class="am-n">Dapur Bersama</div><div class="am-d">Lengkap peralatan masak</div></div>
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-tv"></i></div><div class="am-n">TV Kabel</div><div class="am-d">50+ channel tersedia</div></div>
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-tshirt"></i></div><div class="am-n">Laundry</div><div class="am-d">Antar-jemput kamar</div></div>
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-shield-alt"></i></div><div class="am-n">Keamanan 24 Jam</div><div class="am-d">CCTV & security guard</div></div>
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-coffee"></i></div><div class="am-n">Sarapan Pagi</div><div class="am-d">Tersedia (opsional)</div></div>
+        <div class="amenity-card"><div class="am-ic"><i class="fas fa-car"></i></div><div class="am-n">Antar-Jemput</div><div class="am-d">Bandara & stasiun</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMO PARALLAX ===== -->
+<div class="promo-section">
+  <div id="promo-parallax"></div>
+  <div class="promo-overlay"></div>
+  <div class="promo-content reveal">
+    <div class="promo-tag"><i class="fas fa-tag"></i> Penawaran Spesial</div>
+    <h2 class="promo-title">Diskon 30% untuk Menginap<br>Lebih dari 3 Malam!</h2>
+    <div class="promo-code">BABAS30</div>
+    <p class="promo-sub">Berlaku hingga 31 Desember 2025</p>
+    <a href="#" onclick="openModal();return false;" class="promo-btn"><i class="fas fa-gift"></i> Klaim Promo Sekarang</a>
+  </div>
+</div>
+
+<!-- ===== GALERI ===== -->
+<section id="galeri" class="gallery-section">
+  <div class="gallery-header reveal">
+    <div class="section-eyebrow" style="justify-content:center">Galeri Foto</div>
+    <h2 class="section-title">Lihat Keindahan <em>Baba's Homestay</em></h2>
+    <div class="section-div center"></div>
+    <p class="section-desc" style="font-size:0.8rem">Klik gambar untuk melihat lebih besar</p>
+  </div>
+  <div class="bento reveal">
+    <div class="gc g1" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=85" alt="Eksterior"><div class="gc-ov"><span class="gc-lbl">Eksterior</span></div></div>
+    <div class="gc g2" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=85" alt="Deluxe"><div class="gc-ov"><span class="gc-lbl">Kamar Deluxe</span></div></div>
+    <div class="gc g3" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&q=85" alt="Twin"><div class="gc-ov"><span class="gc-lbl">Kamar Twin</span></div></div>
+    <div class="gc g4" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=85" alt="Kamar Mandi"><div class="gc-ov"><span class="gc-lbl">Kamar Mandi</span></div></div>
+    <div class="gc g5" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=85" alt="Dapur"><div class="gc-ov"><span class="gc-lbl">Dapur</span></div></div>
+    <div class="gc g6" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=500&q=85" alt="Ruang Tamu"><div class="gc-ov"><span class="gc-lbl">Ruang Tamu</span></div></div>
+    <div class="gc g7" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=500&q=85" alt="Living Room"><div class="gc-ov"><span class="gc-lbl">Living Room</span></div></div>
+    <div class="gc g8" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500&q=85" alt="Taman"><div class="gc-ov"><span class="gc-lbl">Area Taman</span></div></div>
+    <div class="gc g9" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?w=500&q=85" alt="Suite"><div class="gc-ov"><span class="gc-lbl">Suite Keluarga</span></div></div>
+  </div>
+  <div class="gallery-more reveal">
+    <button class="btn-outline" onclick="alert('Instagram: @babashomestaymdn')"><i class="fab fa-instagram"></i> Lihat di Instagram</button>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE PARALLAX QUOTE ===== -->
+<div class="exp-section">
+  <div id="exp-parallax"></div>
+  <div class="exp-overlay"></div>
+  <div class="exp-content reveal">
+    <p class="exp-quote">"Menginap di sini bukan sekadar tidur — ini tentang merasakan <em>kehangatan rumah</em> yang sesungguhnya, jauh dari hiruk-pikuk kota."</p>
+    <div class="exp-author">— Baba's Homestay Medan, sejak 2015</div>
+  </div>
+</div>
+
+<!-- ===== ULASAN ===== -->
+<section id="ulasan" class="reviews-section">
+  <div class="reviews-header reveal">
+    <div class="section-eyebrow" style="justify-content:center">Ulasan Tamu</div>
+    <h2 class="section-title">Apa Kata <em>Tamu Kami?</em></h2>
+    <div class="section-div center"></div>
+    <div class="rating-big">4.9</div>
+    <div class="rating-stars-row">★★★★★</div>
+    <div style="font-size:0.78rem;color:#aaa;margin-top:2px">2,300+ ulasan · Google Reviews</div>
+  </div>
+  <div class="reviews-grid reveal">
+    <div class="rv-card"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-text">"Sangat nyaman dan bersih! Staff-nya ramah banget, selalu siap membantu. Lokasi strategis, dekat Merdeka Walk. Pasti balik lagi!"</p><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#6d28d9,#8b5cf6)">A</div><div><div class="rv-name">Andi Kurniawan</div><div class="rv-from">Jakarta · 2 minggu lalu</div></div><div class="rv-g"><i class="fab fa-google"></i><span>5.0</span></div></div></div>
+    <div class="rv-card"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-text">"Kamar keluarganya luas banget! Anak-anak senang. Dapur lengkap jadi bisa masak sendiri. WiFi kenceng. Harga terjangkau!"</p><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#f59e0b,#d97706)">S</div><div><div class="rv-name">Siti Rahayu</div><div class="rv-from">Bandung · 1 bulan lalu</div></div><div class="rv-g"><i class="fab fa-google"></i><span>5.0</span></div></div></div>
+    <div class="rv-card"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-text">"Check-in mudah, kamar bersih dan wangi. Suka banget sama dekorasinya yang homey. Antar-jemput bandara sangat membantu!"</p><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#10b981,#059669)">R</div><div><div class="rv-name">Rizky Pratama</div><div class="rv-from">Surabaya · 3 minggu lalu</div></div><div class="rv-g"><i class="fab fa-google"></i><span>5.0</span></div></div></div>
+    <div class="rv-card"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-text">"Sudah 3 kali menginap di sini, selalu memuaskan. Paling suka kamar VIP yang ada bathtubnya, super relaxing!"</p><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#ec4899,#db2777)">D</div><div><div class="rv-name">Dewi Maharani</div><div class="rv-from">Medan · 2 bulan lalu</div></div><div class="rv-g"><i class="fab fa-google"></i><span>5.0</span></div></div></div>
+    <div class="rv-card"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-text">"Dormitory-nya bersih dan aman, ada loker pribadi. Perfect buat backpacker! Bisa ketemu teman baru juga."</p><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">F</div><div><div class="rv-name">Fajar Santoso</div><div class="rv-from">Yogyakarta · 1 bulan lalu</div></div><div class="rv-g"><i class="fab fa-google"></i><span>5.0</span></div></div></div>
+    <div class="rv-card"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-text">"Terbaik di Medan! Sarapan paginya enak, ada menu Batak dan Melayu. Lokasi 5 menit ke Hermes Palace!"</p><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">N</div><div><div class="rv-name">Nina Wulandari</div><div class="rv-from">Makassar · 3 bulan lalu</div></div><div class="rv-g"><i class="fab fa-google"></i><span>5.0</span></div></div></div>
+  </div>
+</section>
+
+<!-- ===== LOKASI ===== -->
+<section id="lokasi" class="location-section">
+  <div class="location-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Lokasi Kami</div>
+      <h2 class="section-title">Strategis di <em>Jantung Medan</em></h2>
+      <div class="section-div"></div>
+      <p class="section-desc" style="margin-bottom:20px">Baba's Homestay berlokasi di pusat kota Medan, dekat destinasi wisata, kuliner, dan pusat perbelanjaan.</p>
+      <div class="loc-items">
+        <div class="loc-item"><div class="loc-ic"><i class="fas fa-map-marker-alt"></i></div><div><div class="loc-nm">Alamat</div><div class="loc-dt">Jl. Gajah Mada No. 88, Medan Baru, Kota Medan, Sumatera Utara 20153</div></div></div>
+        <div class="loc-item"><div class="loc-ic"><i class="fas fa-plane"></i></div><div><div class="loc-nm">Bandara Kualanamu</div><div class="loc-dt">35 km · ±45 menit via tol</div></div></div>
+        <div class="loc-item"><div class="loc-ic"><i class="fas fa-shopping-bag"></i></div><div><div class="loc-nm">Sun Plaza</div><div class="loc-dt">1.2 km · ±5 menit berkendara</div></div></div>
+        <div class="loc-item"><div class="loc-ic"><i class="fas fa-utensils"></i></div><div><div class="loc-nm">Merdeka Walk</div><div class="loc-dt">0.8 km · ±3 menit berjalan kaki</div></div></div>
+      </div>
+      <a href="https://maps.google.com" target="_blank" class="btn-pri" style="display:inline-flex"><i class="fas fa-directions"></i> Petunjuk Arah</a>
+    </div>
+    <div class="loc-map reveal">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.0202737344257!2d98.6698!3d3.5952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x303131300e5f0001%3A0x0!2sMedan%2C+North+Sumatra!5e0!3m2!1sen!2sid!4v1234567890" allowfullscreen loading="lazy"></iframe>
+      <div class="map-pin"><i class="fas fa-home" style="margin-right:6px"></i>Baba's Homestay</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="pesan" class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content reveal">
+    <div class="cta-pill-tag"><i class="fas fa-concierge-bell"></i> Reservasi Online</div>
+    <h2 class="cta-h">Siap Menginap di<br><em>Baba's Homestay?</em></h2>
+    <p class="cta-d">Proses reservasi mudah & cepat. Konfirmasi langsung via WhatsApp. Tersedia 24 jam.</p>
+    <div class="cta-pills">
+      <div class="cta-pill"><i class="fas fa-check-circle"></i> Konfirmasi Instan</div>
+      <div class="cta-pill"><i class="fas fa-check-circle"></i> Tanpa Biaya Tambahan</div>
+      <div class="cta-pill"><i class="fas fa-check-circle"></i> Pembatalan Gratis 24 Jam</div>
+      <div class="cta-pill"><i class="fas fa-check-circle"></i> Harga Terbaik Dijamin</div>
+    </div>
+    <div class="cta-btns">
+      <button onclick="openModal()" class="btn-pri" style="font-size:.88rem;padding:16px 34px"><i class="fas fa-calendar-check"></i> Pesan Kamar Sekarang</button>
+      <a href="https://wa.me/6281234567890" target="_blank" class="btn-wa"><i class="fab fa-whatsapp" style="font-size:1.1rem"></i> Chat WhatsApp</a>
+    </div>
+    <div class="cta-trust">
+      <div class="trust-item"><i class="fab fa-google"></i> 4.9★ Google Reviews</div>
+      <div class="trust-item"><i class="fas fa-shield-alt"></i> Terjamin & Terpercaya</div>
+      <div class="trust-item"><i class="fas fa-users"></i> 2.000+ Tamu Puas</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="ftr-brand"><div class="ftr-mark">B</div><div><div class="ftr-name">Baba's Homestay</div><div class="ftr-sub">Medan · Est. 2015</div></div></div>
+      <p class="ftr-desc">Homestay premium terpercaya di Medan. Pengalaman menginap nyaman, aman, dan berkesan untuk setiap tamu.</p>
+      <div class="ftr-socials">
+        <a href="#" class="ftr-social" style="background:#833ab4"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="ftr-social" style="background:#3b5998"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="ftr-social" style="background:#25d366"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="ftr-social" style="background:#ee1d52"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="ftr-col-title">Navigasi</div>
+      <div class="ftr-links">
+        <a href="#hero">Beranda</a><a href="#kamar">Kamar & Tarif</a>
+        <a href="#fasilitas">Fasilitas</a><a href="#galeri">Galeri</a>
+        <a href="#ulasan">Ulasan</a><a href="#lokasi">Lokasi</a>
+      </div>
+    </div>
+    <div>
+      <div class="ftr-col-title">Tipe Kamar</div>
+      <div class="ftr-links">
+        <a href="#kamar">Kamar Standard</a><a href="#kamar">Kamar Superior</a>
+        <a href="#kamar">Kamar Deluxe</a><a href="#kamar">Kamar VIP</a>
+        <a href="#kamar">Suite Keluarga</a><a href="#kamar">Dormitory</a>
+      </div>
+    </div>
+    <div>
+      <div class="ftr-col-title">Kontak</div>
+      <div class="ftr-contact">
+        <div class="ftr-ci"><i class="fas fa-map-marker-alt"></i><span>Jl. Gajah Mada No. 88, Medan Baru, Kota Medan 20153</span></div>
+        <div class="ftr-ci"><i class="fas fa-phone"></i><span>+62 812-3456-7890</span></div>
+        <div class="ftr-ci"><i class="fas fa-envelope"></i><span>info@babashomestay.id</span></div>
+        <div class="ftr-ci"><i class="fas fa-clock"></i><span>Check-in: 14.00 | Check-out: 12.00</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="ftr-copy">© 2025 Baba's Homestay Medan. Hak Cipta Dilindungi.</div>
+    <div class="ftr-legal"><a href="#">Kebijakan Privasi</a><a href="#">Syarat & Ketentuan</a></div>
+  </div>
+</footer>
+
+<!-- ===== BOTTOM NAV MOBILE ===== -->
+<nav class="bnav">
+  <a href="#hero" class="bni active" onclick="setBNav(this)">
+    <i class="fas fa-home"></i><span>Beranda</span>
+  </a>
+  <a href="#kamar" class="bni" onclick="setBNav(this)">
+    <i class="fas fa-bed"></i><span>Kamar</span>
+  </a>
+  <button class="bni-center" onclick="openModal()">
+    <i class="fas fa-calendar-check"></i>
+  </button>
+  <a href="#galeri" class="bni" onclick="setBNav(this)">
+    <i class="fas fa-images"></i><span>Galeri</span>
+  </a>
+  <a href="https://wa.me/6281234567890" target="_blank" class="bni">
+    <i class="fab fa-whatsapp" style="color:#25d366 !important"></i>
+    <span style="color:#25d366 !important">Chat</span>
+  </a>
+</nav>
+
+<!-- ===== MODAL ===== -->
+<div id="modal-pesan" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <div class="step-dot active" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+      </div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:white;line-height:1.2" id="modal-title">Informasi Tamu</div>
+      <p style="color:rgba(255,255,255,.5);font-size:0.7rem;margin-top:3px" id="modal-subtitle">Langkah 1 dari 3 · Isi data Anda</p>
+    </div>
+    <div style="padding:26px">
+      <!-- STEP 1 -->
+      <div id="step-1">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div><label class="m-label">Nama Lengkap *</label><div style="position:relative"><i class="fas fa-user" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#c4b5fd;font-size:.8rem"></i><input id="f-nama" type="text" placeholder="Nama lengkap Anda" class="m-input" style="padding-left:38px"></div></div>
+          <div><label class="m-label">No. WhatsApp *</label><div style="position:relative"><i class="fab fa-whatsapp" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#c4b5fd;font-size:.8rem"></i><input id="f-wa" type="tel" placeholder="+62 8xx-xxxx-xxxx" class="m-input" style="padding-left:38px"></div></div>
+          <div><label class="m-label">Email (Opsional)</label><div style="position:relative"><i class="fas fa-envelope" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#c4b5fd;font-size:.8rem"></i><input id="f-email" type="email" placeholder="email@contoh.com" class="m-input" style="padding-left:38px"></div></div>
+          <div><label class="m-label">Jumlah Tamu *</label><div style="display:flex;gap:9px"><button onclick="changeTamu(-1)" style="width:42px;height:42px;border-radius:11px;border:1.5px solid #e8e3ff;color:var(--violet);font-size:1.1rem;font-weight:700;background:none;cursor:pointer;flex-shrink:0">−</button><div id="tamu-count" style="flex:1;height:42px;border-radius:11px;border:1.5px solid #e8e3ff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem;color:var(--ink)">2 Tamu</div><button onclick="changeTamu(1)" style="width:42px;height:42px;border-radius:11px;border:1.5px solid #e8e3ff;color:var(--violet);font-size:1.1rem;font-weight:700;background:none;cursor:pointer;flex-shrink:0">+</button></div></div>
+        </div>
+        <button onclick="goStep(2)" class="btn-pri" style="width:100%;justify-content:center;margin-top:18px">Lanjut — Pilih Tanggal <i class="fas fa-arrow-right"></i></button>
+        <p style="text-align:center;color:#ccc;font-size:.7rem;margin-top:9px"><i class="fas fa-lock" style="margin-right:4px"></i>Data Anda aman</p>
+      </div>
+      <!-- STEP 2 -->
+      <div id="step-2" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+            <div><label class="m-label">Check-In *</label><input id="f-cin" type="date" class="m-input"></div>
+            <div><label class="m-label">Check-Out *</label><input id="f-cout" type="date" class="m-input"></div>
+          </div>
+          <div id="duration-badge" style="display:none;background:#f5f1ff;border:1.5px solid #e8e3ff;border-radius:11px;padding:11px 14px"><span id="duration-text" style="color:var(--violet);font-size:.85rem;font-weight:600"></span></div>
+          <div><label class="m-label">Tipe Kamar *</label>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <label class="kamar-opt"><input type="radio" name="kamar" value="standard" style="display:none"><div style="width:16px;height:16px;border-radius:50%;border:2px solid #c4b5fd;display:flex;align-items:center;justify-content:center;flex-shrink:0" class="kr"><div style="width:8px;height:8px;border-radius:50%;background:var(--violet);display:none" class="kd"></div></div><span style="font-weight:600;font-size:.83rem;color:var(--ink)">Kamar Standard</span><span style="color:#bbb;font-size:.72rem;margin-left:auto">Rp 180K/mlm</span></label>
+              <label class="kamar-opt"><input type="radio" name="kamar" value="superior" style="display:none"><div style="width:16px;height:16px;border-radius:50%;border:2px solid #c4b5fd;display:flex;align-items:center;justify-content:center;flex-shrink:0" class="kr"><div style="width:8px;height:8px;border-radius:50%;background:var(--violet);display:none" class="kd"></div></div><span style="font-weight:600;font-size:.83rem;color:var(--ink)">Kamar Superior</span><span style="color:#bbb;font-size:.72rem;margin-left:auto">Rp 280K/mlm</span></label>
+              <label class="kamar-opt"><input type="radio" name="kamar" value="deluxe" style="display:none"><div style="width:16px;height:16px;border-radius:50%;border:2px solid #c4b5fd;display:flex;align-items:center;justify-content:center;flex-shrink:0" class="kr"><div style="width:8px;height:8px;border-radius:50%;background:var(--violet);display:none" class="kd"></div></div><span style="font-weight:600;font-size:.83rem;color:var(--ink)">Kamar Deluxe</span><span style="color:#bbb;font-size:.72rem;margin-left:auto">Rp 350K/mlm</span></label>
+              <label class="kamar-opt"><input type="radio" name="kamar" value="vip" style="display:none"><div style="width:16px;height:16px;border-radius:50%;border:2px solid #c4b5fd;display:flex;align-items:center;justify-content:center;flex-shrink:0" class="kr"><div style="width:8px;height:8px;border-radius:50%;background:var(--violet);display:none" class="kd"></div></div><span style="font-weight:600;font-size:.83rem;color:var(--ink)">Kamar VIP</span><span style="color:#bbb;font-size:.72rem;margin-left:auto">Rp 750K/mlm</span></label>
+              <label class="kamar-opt"><input type="radio" name="kamar" value="suite" style="display:none"><div style="width:16px;height:16px;border-radius:50%;border:2px solid #c4b5fd;display:flex;align-items:center;justify-content:center;flex-shrink:0" class="kr"><div style="width:8px;height:8px;border-radius:50%;background:var(--violet);display:none" class="kd"></div></div><span style="font-weight:600;font-size:.83rem;color:var(--ink)">Suite Keluarga</span><span style="color:#bbb;font-size:.72rem;margin-left:auto">Rp 550K/mlm</span></label>
+              <label class="kamar-opt"><input type="radio" name="kamar" value="dorm" style="display:none"><div style="width:16px;height:16px;border-radius:50%;border:2px solid #c4b5fd;display:flex;align-items:center;justify-content:center;flex-shrink:0" class="kr"><div style="width:8px;height:8px;border-radius:50%;background:var(--violet);display:none" class="kd"></div></div><span style="font-weight:600;font-size:.83rem;color:var(--ink)">Dormitory</span><span style="color:#bbb;font-size:.72rem;margin-left:auto">Rp 120K/mlm</span></label>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:9px;margin-top:16px">
+          <button onclick="goStep(1)" style="padding:11px 18px;border-radius:30px;border:1.5px solid #e8e3ff;color:var(--violet);font-size:.8rem;font-weight:600;background:none;cursor:pointer;font-family:'Outfit',sans-serif"><i class="fas fa-arrow-left" style="margin-right:4px"></i>Kembali</button>
+          <button onclick="goStep(3)" class="btn-pri" style="flex:1;justify-content:center">Konfirmasi <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <!-- STEP 3 -->
+      <div id="step-3" style="display:none">
+        <div style="background:#f5f1ff;border:1.5px solid #e8e3ff;border-radius:16px;padding:18px;margin-bottom:16px">
+          <div style="font-size:.65rem;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px"><i class="fas fa-clipboard-list" style="margin-right:5px"></i>Ringkasan Reservasi</div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:.83rem">
+            <div style="display:flex;justify-content:space-between"><span style="color:#999">Tamu</span><span id="s-nama" style="font-weight:600;color:var(--ink)">-</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#999">WhatsApp</span><span id="s-wa" style="font-weight:600;color:var(--ink)">-</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#999">Jumlah</span><span id="s-tamu" style="font-weight:600;color:var(--ink)">-</span></div>
+            <div style="border-top:1px solid #e8e3ff;padding-top:9px;display:flex;justify-content:space-between"><span style="color:#999">Check-In</span><span id="s-cin" style="font-weight:600;color:var(--ink)">-</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#999">Check-Out</span><span id="s-cout" style="font-weight:600;color:var(--ink)">-</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#999">Kamar</span><span id="s-kamar" style="font-weight:600;color:var(--violet)">-</span></div>
+            <div style="border-top:1px solid #e8e3ff;padding-top:9px;display:flex;justify-content:space-between"><span style="color:#999;font-size:.8rem">Estimasi Total</span><span id="s-total" style="font-weight:700;color:var(--violet);font-size:.98rem">-</span></div>
+          </div>
+        </div>
+        <div><label class="m-label">Permintaan Khusus</label><textarea id="f-catatan" rows="3" placeholder="Contoh: late check-out, extra pillow..." class="m-input" style="resize:none"></textarea></div>
+        <div style="display:flex;gap:9px;margin-top:14px">
+          <button onclick="goStep(2)" style="padding:11px 18px;border-radius:30px;border:1.5px solid #e8e3ff;color:var(--violet);font-size:.8rem;font-weight:600;background:none;cursor:pointer;font-family:'Outfit',sans-serif"><i class="fas fa-arrow-left" style="margin-right:4px"></i>Kembali</button>
+          <button onclick="submitReservasi()" class="btn-pri" style="flex:1;justify-content:center"><i class="fas fa-check-circle"></i> Kirim Reservasi</button>
+        </div>
+        <a id="wa-link" href="#" target="_blank" style="margin-top:9px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:white;font-weight:700;padding:12px;border-radius:30px;text-decoration:none;font-size:.82rem;transition:background .2s" onmouseover="this.style.background='#1ebe5d'" onmouseout="this.style.background='#25d366'"><i class="fab fa-whatsapp"></i> Atau Lanjut via WhatsApp</a>
+      </div>
+      <!-- SUCCESS -->
+      <div id="modal-success" style="display:none;flex-direction:column;align-items:center;text-align:center;padding:22px 0">
+        <div style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--amethyst));display:flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 10px 36px rgba(109,40,217,.3)"><i class="fas fa-check" style="color:white;font-size:1.7rem"></i></div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--ink);margin-bottom:7px">Reservasi Terkirim!</h3>
+        <p style="color:#999;font-size:.84rem;margin-bottom:22px;line-height:1.7">Tim kami akan menghubungi dalam <strong style="color:var(--violet)">1×24 jam</strong>.</p>
+        <div style="background:#f5f1ff;border:1.5px solid #e8e3ff;border-radius:13px;padding:14px;margin-bottom:22px;text-align:left"><div style="font-size:.65rem;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px"><i class="fas fa-info-circle" style="margin-right:4px"></i>Info Penting</div><p style="font-size:.77rem;color:#999;line-height:1.6">Simpan nomor kami: <strong>+62 812-3456-7890</strong>. DP 30% maks. 24 jam setelah konfirmasi.</p></div>
+        <button onclick="closeModal()" class="btn-pri">Selesai</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button onclick="closeLightbox()" style="position:absolute;top:18px;right:18px;color:white;font-size:1.4rem;background:none;border:none;cursor:pointer;z-index:50"><i class="fas fa-times"></i></button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<style>
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+</style>
+
+<script>
+// ===================== NAVBAR SCROLL =====================
+const navbar = document.getElementById('navbar');
+const hero   = document.getElementById('hero');
+
+function updateNav(){
+  const heroBottom = hero.offsetTop + hero.offsetHeight;
+  const scrollY = window.scrollY;
+  const isMobile = window.innerWidth <= 1024;
+  navbar.classList.remove('light','scrolled');
+  if(isMobile){
+    if(scrollY > 60) navbar.classList.add('scrolled');
+    return;
+  }
+  if(scrollY > heroBottom - 80){
+    navbar.classList.add('light');
+  } else if(scrollY > 60){
+    navbar.classList.add('scrolled');
+  }
+}
+window.addEventListener('scroll', updateNav, {passive:true});
+window.addEventListener('resize', updateNav);
+updateNav();
+
+// ===================== PARALLAX =====================
+const sharedBg = document.getElementById('shared-bg');
+const promoPx  = document.getElementById('promo-parallax');
+const expPx    = document.getElementById('exp-parallax');
+
+function getTop(el){ return el.getBoundingClientRect().top + window.scrollY; }
+
+// Hitung sampai mana zona "shared bg" aktif (hero + booking + about)
+function getSharedZoneEnd(){
+  const tentang = document.getElementById('tentang');
+  return tentang ? tentang.offsetTop + tentang.offsetHeight : window.innerHeight * 2;
+}
+
+window.addEventListener('scroll', function(){
+  const sy = window.scrollY;
+
+  // SHARED BG — gerak lambat (parallax rate 0.3)
+  // Foto bergerak lebih lambat dari scroll → efek kedalaman
+  sharedBg.style.transform = `translateY(${sy * 0.3}px)`;
+
+  // Fade out shared-bg setelah zona about selesai
+  const zoneEnd = getSharedZoneEnd();
+  const fadeStart = zoneEnd - 200;
+  if(sy > fadeStart){
+    const opacity = Math.max(0, 1 - (sy - fadeStart) / 200);
+    sharedBg.style.opacity = opacity;
+  } else {
+    sharedBg.style.opacity = 1;
+  }
+
+  // Promo parallax
+  const promoEl = document.querySelector('.promo-section');
+  if(promoEl) promoPx.style.transform = `translateY(${(sy - getTop(promoEl)) * 0.25}px)`;
+  // Exp parallax
+  const expEl = document.querySelector('.exp-section');
+  if(expEl) expPx.style.transform = `translateY(${(sy - getTop(expEl)) * 0.25}px)`;
+}, {passive:true});
+
+// ===================== BOTTOM NAV ACTIVE =====================
+function setBNav(el){
+  document.querySelectorAll('.bnav .bni').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+}
+const bNavSections = ['hero','kamar','galeri','pesan'];
+window.addEventListener('scroll', ()=>{
+  let cur = '';
+  bNavSections.forEach(id=>{ const el=document.getElementById(id); if(el && window.scrollY >= el.offsetTop-100) cur=id; });
+  document.querySelectorAll('.bnav .bni').forEach(a=>{ a.classList.remove('active'); if(a.getAttribute('href')==='#'+cur) a.classList.add('active'); });
+}, {passive:true});
+
+// ===================== SCROLL REVEAL =====================
+const revEls = document.querySelectorAll('.reveal');
+const revObs = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('vis'), i*70); });
+},{threshold:0.07});
+revEls.forEach(el=>revObs.observe(el));
+
+// ===================== MODAL =====================
+let tamuCount = 2;
+const kp = {standard:{name:'Kamar Standard',price:180000},superior:{name:'Kamar Superior',price:280000},deluxe:{name:'Kamar Deluxe',price:350000},vip:{name:'Kamar VIP',price:750000},suite:{name:'Suite Keluarga',price:550000},dorm:{name:'Dormitory',price:120000}};
+function openModal(){ document.getElementById('modal-pesan').classList.add('open'); document.body.style.overflow='hidden'; goStep(1); document.getElementById('modal-success').style.display='none'; }
+function closeModal(){ document.getElementById('modal-pesan').classList.remove('open'); document.body.style.overflow=''; }
+function handleOverlayClick(e){ if(e.target===document.getElementById('modal-pesan')) closeModal(); }
+function changeTamu(d){ tamuCount=Math.max(1,Math.min(10,tamuCount+d)); document.getElementById('tamu-count').textContent=tamuCount+' Tamu'; }
+function goStep(n){
+  if(n===2){ const nm=document.getElementById('f-nama').value.trim(),wa=document.getElementById('f-wa').value.trim(); if(!nm||!wa){shakeModal();return;} }
+  if(n===3){ const c=document.getElementById('f-cin').value,o=document.getElementById('f-cout').value,k=document.querySelector('input[name="kamar"]:checked'); if(!c||!o||!k){shakeModal();return;} fillSummary(); }
+  [1,2,3].forEach(i=>{ document.getElementById('step-'+i).style.display=i===n?'block':'none'; document.getElementById('dot-'+i).classList.toggle('active',i<=n); });
+  const tt=['','Informasi Tamu','Tanggal & Kamar','Konfirmasi Reservasi'];
+  const ts=['','Langkah 1 dari 3 · Isi data Anda','Langkah 2 dari 3 · Pilih tanggal & tipe kamar','Langkah 3 dari 3 · Cek & kirim'];
+  document.getElementById('modal-title').textContent=tt[n];
+  document.getElementById('modal-subtitle').textContent=ts[n];
+  document.querySelector('.modal-box').scrollTop=0;
+}
+function shakeModal(){ const b=document.querySelector('.modal-box'); b.style.animation='shake .4s ease'; setTimeout(()=>b.style.animation='',500); }
+function fillSummary(){
+  const nm=document.getElementById('f-nama').value,wa=document.getElementById('f-wa').value,ci=document.getElementById('f-cin').value,co=document.getElementById('f-cout').value,kv=document.querySelector('input[name="kamar"]:checked').value;
+  const k=kp[kv],nights=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000)),total=k.price*nights;
+  const fmt=v=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v);
+  const fd=d=>new Date(d).toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('s-nama').textContent=nm;
+  document.getElementById('s-wa').textContent=wa;
+  document.getElementById('s-tamu').textContent=tamuCount+' orang';
+  document.getElementById('s-cin').textContent=fd(ci);
+  document.getElementById('s-cout').textContent=fd(co);
+  document.getElementById('s-kamar').textContent=k.name;
+  document.getElementById('s-total').textContent=fmt(total)+' ('+nights+' mlm)';
+  const msg=`Halo Baba's Homestay! Reservasi:%0ANama: ${nm}%0AWA: ${wa}%0ATamu: ${tamuCount}%0ACI: ${ci}%0ACO: ${co}%0AKamar: ${k.name}`;
+  document.getElementById('wa-link').href='https://wa.me/6281234567890?text='+msg;
+}
+function submitReservasi(){ [1,2,3].forEach(i=>document.getElementById('step-'+i).style.display='none'); const s=document.getElementById('modal-success'); s.style.display='flex'; document.getElementById('modal-title').textContent='🎉 Berhasil!'; document.getElementById('modal-subtitle').textContent='Reservasi Anda telah terkirim'; [1,2,3].forEach(i=>document.getElementById('dot-'+i).classList.add('active')); }
+document.querySelectorAll('.kamar-opt').forEach(o=>{
+  o.addEventListener('click',()=>{
+    document.querySelectorAll('.kamar-opt').forEach(x=>{ x.style.borderColor='#e8e3ff'; x.style.background='white'; x.querySelector('.kd').style.display='none'; });
+    o.style.borderColor='var(--violet)'; o.style.background='#f8f5ff';
+    o.querySelector('input').checked=true; o.querySelector('.kd').style.display='block';
+  });
+});
+['f-cin','f-cout'].forEach(id=>{ document.getElementById(id).addEventListener('change',()=>{
+  const ci=document.getElementById('f-cin').value,co=document.getElementById('f-cout').value;
+  if(ci&&co){ const n=Math.round((new Date(co)-new Date(ci))/86400000),b=document.getElementById('duration-badge');
+    if(n>0){b.style.display='block';document.getElementById('duration-text').innerHTML='<i class="fas fa-moon" style="margin-right:7px"></i>'+n+' malam menginap';}else b.style.display='none'; }
+}); });
+
+// ===================== LIGHTBOX =====================
+function openLightbox(el){ document.getElementById('lightbox-img').src=el.querySelector('img').src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow='hidden'; }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow=''; }
+</script>
+</body>
+</html>
