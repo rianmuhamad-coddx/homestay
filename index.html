@@ -131,9 +131,41 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 
 @media(max-width:1024px){
   .nav-links { display: none; }
-  #navbar { padding: 0 20px; }
   #topbar { display: none; }
-  #navbar { top: 0; }
+  /* Mobile navbar — putih, rounded pill, tipis, floating */
+  #navbar {
+    top: 12px;
+    left: 16px; right: 16px;
+    width: auto;
+    height: 52px;
+    padding: 0 16px 0 12px;
+    border-radius: 40px;
+    background: rgba(255,255,255,0.96) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  }
+  /* logo text gelap di mobile */
+  #navbar .nav-logo-text { color: var(--ink) !important; }
+  #navbar .nav-logo-sub  { color: var(--violet) !important; }
+  /* tombol pesan kecil di kanan */
+  #navbar .nav-cta-mobile {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, var(--violet), var(--plum));
+    color: white; padding: 7px 16px; border-radius: 30px;
+    font-size: 0.72rem; font-weight: 600; white-space: nowrap;
+    box-shadow: 0 3px 12px rgba(109,40,217,0.35);
+  }
+  /* scrolled state tetap sama di mobile */
+  #navbar.scrolled, #navbar.light {
+    top: 12px;
+    background: rgba(255,255,255,0.96) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  }
+  #navbar.scrolled .nav-logo-text,
+  #navbar.light .nav-logo-text { color: var(--ink) !important; }
+  /* show mobile pesan button */
+  #navbar .nav-cta-mobile { display: inline-flex !important; }
 }
 
 /* =====================================================
@@ -719,37 +751,49 @@ footer { background:#07040f; padding:72px 48px 28px; }
 @media(max-width:480px){ .footer-grid { grid-template-columns:1fr; } }
 
 /* =====================================================
-   BOTTOM NAV — MOBILE
+   BOTTOM NAV — MOBILE, FLOATING ROUNDED PILL
 ===================================================== */
 .bnav {
   display: none;
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+  position: fixed;
+  bottom: 16px;
+  left: 50%; transform: translateX(-50%);
+  width: auto; min-width: 280px; max-width: calc(100vw - 32px);
+  z-index: 300;
   background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 -3px 28px rgba(0,0,0,0.1);
-  padding: 10px 8px 12px;
-  justify-content: space-around; align-items: flex-end;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 40px;
+  padding: 8px 16px 8px;
+  justify-content: space-around; align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(255,255,255,0.8);
 }
-.bni { display:flex; flex-direction:column; align-items:center; gap:3px; padding: 4px 10px; border-radius:12px; transition:all .2s; }
-.bni i { font-size:1.2rem; color:#aaa; }
-.bni span { font-size:0.58rem; color:#aaa; font-weight:500; }
-.bni.active i { color:var(--violet); }
-.bni.active span { color:var(--violet); font-weight:700; }
-.bni.active { background:rgba(109,40,217,0.08); }
+.bni {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 5px 12px; border-radius: 24px; transition: all .2s;
+  min-width: 44px;
+}
+.bni i { font-size: 1.1rem; color: #bbb; }
+.bni span { font-size: 0.55rem; color: #bbb; font-weight: 500; }
+.bni.active i { color: var(--violet); }
+.bni.active span { color: var(--violet); font-weight: 700; }
+.bni.active { background: rgba(109,40,217,0.08); }
 .bni-center {
   background: linear-gradient(135deg, var(--violet), var(--plum));
-  border-radius: 50%; width:52px; height:52px;
-  display:flex; align-items:center; justify-content:center;
-  margin-top:-18px; border:3px solid white;
-  box-shadow: 0 6px 20px rgba(109,40,217,.44);
+  border-radius: 50%; width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2.5px solid white;
+  box-shadow: 0 4px 16px rgba(109,40,217,.44);
   transition: transform .2s, box-shadow .2s;
-  cursor: pointer; border:none;
+  cursor: pointer; flex-shrink: 0;
 }
-.bni-center:hover,.bni-center:active { transform:scale(0.93); }
-.bni-center i { color:white; font-size:1.2rem; }
+.bni-center:hover, .bni-center:active { transform: scale(0.92); }
+.bni-center i { color: white; font-size: 1.05rem; }
 @media(max-width:1024px){
-  .bnav { display:flex; }
-  body { padding-bottom: 76px; }
+  .bnav { display: flex; }
+  body { padding-bottom: 88px; }
 }
 
 /* =====================================================
@@ -815,6 +859,10 @@ footer { background:#07040f; padding:72px 48px 28px; }
     <a href="#ulasan"   class="nav-link">Ulasan</a>
     <a href="#" onclick="openModal();return false;" class="nav-link nav-cta">Pesan Sekarang</a>
   </div>
+  <!-- Mobile only — tombol pesan kecil di kanan navbar -->
+  <a href="#" onclick="openModal();return false;" class="nav-cta-mobile" style="display:none">
+    <i class="fas fa-calendar-check"></i> Pesan
+  </a>
 </nav>
 
 
